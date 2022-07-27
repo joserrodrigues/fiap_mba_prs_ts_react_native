@@ -4,7 +4,8 @@
     "slug": "fiap_mba_prs_ts_react_native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.png",    	
+	  "entryPoint": "./src/Screens/Home/HomeController",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
