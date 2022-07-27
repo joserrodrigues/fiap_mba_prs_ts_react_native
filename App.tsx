@@ -1,16 +1,18 @@
 import { FC } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { AirbnbRating, Button, Avatar, Badge } from "react-native-elements";
+import styles from "./AppStyle";
 
 const App: FC = () => {
   return (
     <View style={styles.container}>
       <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: 30,
-        }}
+        style={[
+          styles.viewBox,
+          {
+            marginBottom: 30,
+          },
+        ]}
       >
         <AirbnbRating
           count={10}
@@ -55,16 +57,3 @@ const App: FC = () => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 40,
-  },
-  headingContainer: {
-    paddingTop: 50,
-  },
-  rating: {
-    paddingVertical: 10,
-  },
-});
