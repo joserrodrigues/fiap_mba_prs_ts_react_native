@@ -22,7 +22,7 @@ const DrawerMenu: FC = () => {
             type="font-awesome"
             size={20}
             tvParallaxProperties={undefined}
-            color={Colors.PrimaryLight}
+            color={Colors.HeaderTintColor}
             style={{ marginLeft: 10 }}
           />
         </TouchableOpacity>

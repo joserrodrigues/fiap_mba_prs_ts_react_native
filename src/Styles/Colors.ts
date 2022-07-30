@@ -1,19 +1,19 @@
 const colors = {
     White: '#ffffff',
-    PrimaryDark: '#C35403',
-    PrimaryMedium: '#E16206',
-    PrimaryLight: '#F87C23',
-    PrimaryLightest: '#F87C23',
+    PrimaryDark: '#fa5757',
+    PrimaryMedium: '#fc7474',
+    PrimaryLight: '#fc9797',
+    PrimaryLightest: '#fcd4d4',
 
     SecondaryDark: '#688C38',
     SecondaryMedium: '#86B34A',
     SecondaryLight: '#9ED259',
     SecondaryLightest: '#BAF172',
 
-    TertiaryDark: '#AB3552',
-    TertiaryMedium: '#D84267',
-    TertiaryLight: '#E65A7C',
-    TertiaryLightest: '#FD7A9A',
+    TertiaryDark: '#C35403',
+    TertiaryMedium: '#E16206',
+    TertiaryLight: '#F87C23',
+    TertiaryLightest: '#F87C23',
 
     NeutralDark: '#39322E',
     NeutralMedium: '#9C8F8F',

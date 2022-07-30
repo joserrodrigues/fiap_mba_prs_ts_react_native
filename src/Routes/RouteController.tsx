@@ -1,30 +1,32 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import { Button, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { registerRootComponent } from "expo";
 import Colors from "../Styles/Colors";
 
 import HomeController from "../Screens/Home/HomeController";
 import DetailController from "../Screens/Detail/DetailController";
+import MyInfoController from "../Screens/MyInfo/MyInfoController";
+import MyPositionController from "../Screens/MyPosition/MyPositionController";
 
 export type RootStackParamList = {
   Home: undefined;
   Details: { itemID: number; info: string };
+  MyInfo: undefined;
+  MyPosition: undefined;
 };
 
 
 export type RootDrawerParamList = {
   Main: undefined;
-  Notifications: undefined;
+  MyInfoDrawer: undefined;
+  MyPositionDrawer: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
-const Tab = createBottomTabNavigator();
 
 function RouteController() {
 
@@ -54,11 +56,29 @@ function RouteController() {
     );
   };
 
-  // return (
-  //     <NavigationContainer>
-  //         <StackHome />
-  //     </NavigationContainer>
-  // );
+  const StackMyInfo = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MyInfo"
+          component={MyInfoController}
+          options={{ ...screenOptions, title: "Minhas Informações" }}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  const StackMyPosition = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MyPosition"
+          component={MyPositionController}
+          options={{ ...screenOptions, title: "Minha Posição" }}
+        />
+      </Stack.Navigator>
+    );
+  };
 
   return (
     <NavigationContainer>
@@ -69,22 +89,19 @@ function RouteController() {
           options={{ drawerLabel: "Main", headerShown: false }}
         />
         <Drawer.Screen
-          name="Notifications"
-          component={DetailController}
-          options={{ drawerLabel: "Notifications", headerShown: false }}
+          name="MyInfoDrawer"
+          component={StackMyInfo}
+          options={{ drawerLabel: "Minha Informação", headerShown: false }}
+        />
+        <Drawer.Screen
+          name="MyPositionDrawer"
+          component={StackMyPosition}
+          options={{ drawerLabel: "Minha Posição", headerShown: false }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 
-  // return (
-  //     <NavigationContainer>
-  //         <Tab.Navigator>
-  //             <Tab.Screen name="HomeTab" component={StackHome} />
-  //             <Tab.Screen name=" NotificationsTab" component={DetailController} />
-  //         </Tab.Navigator>
-  //     </NavigationContainer>
-  // );
 }
 
 export default registerRootComponent(RouteController);

@@ -13,3 +13,15 @@ export const StyledButton = styled(Button).attrs({
     marginVertical: 10,
   },
 })``;
+
+export const AllScreenStyledButton = styled(Button).attrs({
+  buttonStyle: {
+    backgroundColor: Colors.PrimaryMedium,
+    borderRadius: 10,
+  },
+  containerStyle: {
+    width: "90%",
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+})``;
