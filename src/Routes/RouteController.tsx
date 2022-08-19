@@ -10,6 +10,13 @@ import HomeController from "../Screens/Home/HomeController";
 import DetailController from "../Screens/Detail/DetailController";
 import MyInfoController from "../Screens/MyInfo/MyInfoController";
 import MyPositionController from "../Screens/MyPosition/MyPositionController";
+import LoginController from "../Screens/Login/LoginController";
+
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "../store/store";
+
+
+import { Provider } from "react-redux";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -81,26 +88,42 @@ function RouteController() {
   };
 
   return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Main">
-        <Drawer.Screen
-          name="Main"
-          component={StackHome}
-          options={{ drawerLabel: "Main", headerShown: false }}
-        />
-        <Drawer.Screen
-          name="MyInfoDrawer"
-          component={StackMyInfo}
-          options={{ drawerLabel: "Minha Informação", headerShown: false }}
-        />
-        <Drawer.Screen
-          name="MyPositionDrawer"
-          component={StackMyPosition}
-          options={{ drawerLabel: "Minha Posição", headerShown: false }}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="MyPosition"
+              component={LoginController}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
+
+  // return (
+  //   <NavigationContainer>
+  //     <Drawer.Navigator initialRouteName="Main">
+  //       <Drawer.Screen
+  //         name="Main"
+  //         component={StackHome}
+  //         options={{ drawerLabel: "Main", headerShown: false }}
+  //       />
+  //       <Drawer.Screen
+  //         name="MyInfoDrawer"
+  //         component={StackMyInfo}
+  //         options={{ drawerLabel: "Minha Informação", headerShown: false }}
+  //       />
+  //       <Drawer.Screen
+  //         name="MyPositionDrawer"
+  //         component={StackMyPosition}
+  //         options={{ drawerLabel: "Minha Posição", headerShown: false }}
+  //       />
+  //     </Drawer.Navigator>
+  //   </NavigationContainer>
+  // );
 
 }
 
