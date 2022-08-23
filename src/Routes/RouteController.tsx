@@ -15,7 +15,7 @@ import LoginController from "../Screens/Login/LoginController";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../store/store";
 
-
+import { useAppSelector } from "../store/hooks";
 import { Provider } from "react-redux";
 
 export type RootStackParamList = {
@@ -24,7 +24,6 @@ export type RootStackParamList = {
   MyInfo: undefined;
   MyPosition: undefined;
 };
-
 
 export type RootDrawerParamList = {
   Main: undefined;
@@ -36,7 +35,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 function RouteController() {
-
   let screenOptions = {
     headerShown: true,
     headerStyle: {
@@ -45,6 +43,8 @@ function RouteController() {
     headerTintColor: Colors.HeaderTintColor,
     headerLayoutPreset: "center",
   };
+
+  const userInfo = useAppSelector((state) => state.login.user);
 
   const StackHome = () => {
     return (
@@ -87,44 +87,51 @@ function RouteController() {
     );
   };
 
+  if (userInfo && userInfo.token !== "") {
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Main">
+          <Drawer.Screen
+            name="Main"
+            component={StackHome}
+            options={{ drawerLabel: "Main", headerShown: false }}
+          />
+          <Drawer.Screen
+            name="MyInfoDrawer"
+            component={StackMyInfo}
+            options={{ drawerLabel: "Minha Informação", headerShown: false }}
+          />
+          <Drawer.Screen
+            name="MyPositionDrawer"
+            component={StackMyPosition}
+            options={{ drawerLabel: "Minha Posição", headerShown: false }}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    );
+  } else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="MyPosition"
+            component={LoginController}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+}
+
+const RouteControllerManagement = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="MyPosition"
-              component={LoginController}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <RouteController />
       </PersistGate>
     </Provider>
   );
+};
 
-  // return (
-  //   <NavigationContainer>
-  //     <Drawer.Navigator initialRouteName="Main">
-  //       <Drawer.Screen
-  //         name="Main"
-  //         component={StackHome}
-  //         options={{ drawerLabel: "Main", headerShown: false }}
-  //       />
-  //       <Drawer.Screen
-  //         name="MyInfoDrawer"
-  //         component={StackMyInfo}
-  //         options={{ drawerLabel: "Minha Informação", headerShown: false }}
-  //       />
-  //       <Drawer.Screen
-  //         name="MyPositionDrawer"
-  //         component={StackMyPosition}
-  //         options={{ drawerLabel: "Minha Posição", headerShown: false }}
-  //       />
-  //     </Drawer.Navigator>
-  //   </NavigationContainer>
-  // );
-
-}
-
-export default registerRootComponent(RouteController);
+export default registerRootComponent(RouteControllerManagement);

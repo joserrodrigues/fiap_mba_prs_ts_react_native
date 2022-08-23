@@ -55,16 +55,20 @@ export const BottomButton = styled.View`
   flex-direction: row;
   justify-content: center;
 `;
+export const MessageErrorBox = styled.View`
+
+`;
+export const MessageError = styled.Text`
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+`;
 
 export const StyledButton = styled(Button).attrs({
   buttonStyle: {
     backgroundColor: "red",
     borderRadius: 10,
-  },
-  containerStyle: {
-    width: "100%",
-    height: "100%",
-    flex: 1,
   },
 })``;
 

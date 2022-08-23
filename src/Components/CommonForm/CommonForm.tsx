@@ -41,17 +41,16 @@ type IProps = {
   >;
   onSubmit: (values: any, formikHelpers: any) => void | Promise<any>;
   listInfo: FormListInfo[];
+  hideBottomSpace?: boolean;
 };
 
 const CommonForm: ForwardRefRenderFunction<FormCommonRefs, IProps> = (
-  { signInSchema, onSubmit, listInfo },
+  { signInSchema, onSubmit, listInfo, hideBottomSpace },
   ref
 ) => {
-
   const itemsRef = useRef<FormItems[]>([]);
   let testSubmit: (e?: FormEvent<HTMLFormElement>) => void | undefined;
 
-  
   useImperativeHandle(ref, () => ({
     submitForm: () => {
       if (testSubmit) {
@@ -60,7 +59,7 @@ const CommonForm: ForwardRefRenderFunction<FormCommonRefs, IProps> = (
     },
   }));
 
-  const addNewKeyboard = (e:TextInput | null, name: string) => {
+  const addNewKeyboard = (e: TextInput | null, name: string) => {
     for (let index = 0; index < itemsRef.current.length; index++) {
       if (itemsRef.current[index].key === name) {
         return;
@@ -89,11 +88,15 @@ const CommonForm: ForwardRefRenderFunction<FormCommonRefs, IProps> = (
     }
   };
 
-  let initialValues:any = {};
+  let initialValues: any = {};
   listInfo.forEach((element) => {
     initialValues[element.name] = "";
   });
 
+  let bottomBox: any = null;
+  if (!hideBottomSpace) {
+    bottomBox = <SpaceBottom />;
+  }
   return (
     <Formik
       initialValues={initialValues}
@@ -118,7 +121,11 @@ const CommonForm: ForwardRefRenderFunction<FormCommonRefs, IProps> = (
               }}
               placeholder={element.placeholder}
               onChangeText={(text) => setFieldValue(element.name, text)}
-              leftIcon={{ type: "font-awesome", name: element.icon, size: 14 }}
+              leftIcon={{
+                type: "font-awesome",
+                name: element.icon,
+                size: 14,
+              }}
               secureTextEntry={element.secure}
               autoCompleteType={element.type}
             />
@@ -135,7 +142,7 @@ const CommonForm: ForwardRefRenderFunction<FormCommonRefs, IProps> = (
         return (
           <View>
             {arrayItems}
-            <SpaceBottom />
+            {bottomBox}
           </View>
         );
       }}
