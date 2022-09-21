@@ -25,6 +25,7 @@ import { AssertsShape, ObjectShape, TypeOfShape } from "yup/lib/object";
 import { ObjectSchema } from "yup";
 import { AnyObject } from "yup/lib/types";
 import { Platform } from "react-native";
+import { i18n } from "../../Services/Language/ManageStrings";
 
 type IProps = {
   isLoadingAuth: boolean;
@@ -57,7 +58,7 @@ const LoginView = ({
   } else {
     buttonBox = (
       <StyledButton
-        title="Login"
+        title={i18n.t("login")}
         testID="loginButton"
         onPress={() => commonForm.current!.submitForm()}
       />
@@ -74,16 +75,16 @@ const LoginView = ({
   let formListInfo: FormListInfo[] = [
     {
       name: "email",
-      label: "E-mail",
-      placeholder: "E-mail",
+      label: i18n.t("email"),
+      placeholder: i18n.t("email"),
       icon: "envelope",
       secure: false,
       type: "email",
     },
     {
       name: "password",
-      label: "Senha",
-      placeholder: "Senha",
+      label: i18n.t("password"),
+      placeholder: i18n.t("password"),
       icon: "lock",
       secure: true,
       type: "password",

@@ -12,6 +12,7 @@ import { FormikHelpers } from "formik";
 import { AssertsShape, ObjectShape, TypeOfShape } from "yup/lib/object";
 import { ObjectSchema } from "yup";
 import { AnyObject } from "yup/lib/types";
+import { i18n } from "../../Services/Language/ManageStrings";
 
 export type FormDataType = {
   email: string;
@@ -64,12 +65,12 @@ const LoginController = () => {
     AssertsShape<ObjectShape>
   > = Yup.object().shape({
     email: Yup.string()
-      .email("E-mail não válido")
-      .required("E-mail é obrigatório"),
+      .email(i18n.t("invalidEmail"))
+      .required(i18n.t("requiredEmail")),
 
     password: Yup.string()
-      .required("Senha é obrigatório")
-      .min(4, "Senha é curta - deveria ter ao menos 4 caracteres"),
+      .required(i18n.t("requiredPassword"))
+      .min(4, i18n.t("shortPassword")),
   });
 
   const submitForm = (
