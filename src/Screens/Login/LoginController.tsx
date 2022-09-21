@@ -39,15 +39,15 @@ const LoginController = () => {
     getLoginAPI
       .requestPromise("", info)
       .then((user: IUserInfo) => {
-
-        if(user.message){
-          setMessageErrorConnection(user.message)
+        if (user.message) {
+          setMessageErrorConnection(user.message);
         } else {
           console.log("After Login");
           console.log(user);
           console.log(user.token);
+          setMessageErrorConnection("Login com Sucesso");
           dispatch(setUser({ user }));
-        }        
+        }
         setIsLoadingAuth(false);
       })
       .catch((error: any) => {

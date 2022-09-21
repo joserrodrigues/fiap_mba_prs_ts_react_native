@@ -30,40 +30,39 @@ type iProps = {
 };
 
 const HomeView:FC<iProps> = ({ navigation, dataConnection, isLoading, goToDetail }) => {
-  const RenderItem = ({item}: {item: IPerson}) => {
-    console.log(item)
+  const RenderItem = ({ item }: { item: IPerson }) => {
+    console.log(item);
     return (
       <ContainerItem
+        testID={"button" + item.CPF.toString()}
         onPress={() => goToDetail(item)}
       >
-        <>
-          <TextsView>
-            <View>
-              <StyledImage
-                source={{ uri: item.image }}
-              />
-            </View>
-            <View>
-              <TextNameStyle>
-                <TextTitle>
-                  {item.firstName} {item.lastName}
-                </TextTitle>
-              </TextNameStyle>
-              <TextNameStyle>
-                <TextDetail>
-                  {item.address} - {item.state} - {item.zipCode}
-                </TextDetail>
-              </TextNameStyle>
-              <TextNameStyle>
-                <TextDetail>{item.jobTitle}</TextDetail>
-              </TextNameStyle>
-            </View>
-          </TextsView>
-          <Separator />
-        </>
-      </ContainerItem>
-    );
-  };
+      <>
+        <TextsView>
+          <View>
+            <StyledImage source={{ uri: item.image }} />
+          </View>
+          <View>
+            <TextNameStyle>
+              <TextTitle>
+                {item.firstName} {item.lastName}
+              </TextTitle>
+            </TextNameStyle>
+            <TextNameStyle>
+              <TextDetail>
+                {item.address} - {item.state} - {item.zipCode}
+              </TextDetail>
+            </TextNameStyle>
+            <TextNameStyle>
+              <TextDetail>{item.jobTitle}</TextDetail>
+            </TextNameStyle>
+          </View>
+        </TextsView>
+        <Separator />
+      </>
+    </ContainerItem>
+  );
+};
 
   let loadingBox = null;
   if (isLoading) {
@@ -71,6 +70,7 @@ const HomeView:FC<iProps> = ({ navigation, dataConnection, isLoading, goToDetail
       <StyledActivityIndicator
         size="large"
         color={Colors.PrimaryDark}
+        testID="activityLoading"
       />
     );
   }
@@ -80,8 +80,9 @@ const HomeView:FC<iProps> = ({ navigation, dataConnection, isLoading, goToDetail
       {loadingBox}
       <FlatList
         data={dataConnection}
-        renderItem={({item}: { item: IPerson}) => <RenderItem item={item} />}
+        renderItem={({ item }: { item: IPerson }) => <RenderItem item={item} />}
         keyExtractor={(item: IPerson) => item.CPF.toString()}
+        testID="flatListHome"
       />
     </MainSafeAreaView>
   );

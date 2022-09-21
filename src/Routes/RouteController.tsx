@@ -31,37 +31,36 @@ export type RootDrawerParamList = {
   MyPositionDrawer: undefined;
 };
 
+let screenOptions = {
+  headerShown: true,
+  headerStyle: {
+    backgroundColor: Colors.HeaderBackgroundColor,
+  },
+  headerTintColor: Colors.HeaderTintColor,
+  headerLayoutPreset: "center",
+};
+
+export const StackHome = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeController}
+        options={screenOptions}
+      />
+      <Stack.Screen
+        name="Details"
+        component={DetailController}
+        options={screenOptions}
+      />
+    </Stack.Navigator>
+  );
+};
 const Stack = createStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
-function RouteController() {
-  let screenOptions = {
-    headerShown: true,
-    headerStyle: {
-      backgroundColor: Colors.HeaderBackgroundColor,
-    },
-    headerTintColor: Colors.HeaderTintColor,
-    headerLayoutPreset: "center",
-  };
-
+export function RouteController() {
   const userInfo = useAppSelector((state) => state.login.user);
-
-  const StackHome = () => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeController}
-          options={screenOptions}
-        />
-        <Stack.Screen
-          name="Details"
-          component={DetailController}
-          options={screenOptions}
-        />
-      </Stack.Navigator>
-    );
-  };
 
   const StackMyInfo = () => {
     return (

@@ -24,6 +24,7 @@ import CommonForm, {
 import { AssertsShape, ObjectShape, TypeOfShape } from "yup/lib/object";
 import { ObjectSchema } from "yup";
 import { AnyObject } from "yup/lib/types";
+import { Platform } from "react-native";
 
 type IProps = {
   isLoadingAuth: boolean;
@@ -57,6 +58,7 @@ const LoginView = ({
     buttonBox = (
       <StyledButton
         title="Login"
+        testID="loginButton"
         onPress={() => commonForm.current!.submitForm()}
       />
     );
