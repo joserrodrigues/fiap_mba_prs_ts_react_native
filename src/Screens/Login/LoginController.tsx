@@ -13,6 +13,7 @@ import { AssertsShape, ObjectShape, TypeOfShape } from "yup/lib/object";
 import { ObjectSchema } from "yup";
 import { AnyObject } from "yup/lib/types";
 import { i18n } from "../../Services/Language/ManageStrings";
+import { useGetToken } from "../../Services/Notification/ManageNotification"; 
 
 export type FormDataType = {
   email: string;
@@ -27,6 +28,7 @@ const LoginController = () => {
   const oldUserName = useAppSelector((state) => state.login.user);
 
   const dispatch = useAppDispatch();
+  
 
   const makeLogin = (userName: string, password: string) => {
     console.log("Loading School - " + userName + " - " + password);
@@ -73,10 +75,13 @@ const LoginController = () => {
       .min(4, i18n.t("shortPassword")),
   });
 
-  const submitForm = (
+  const submitForm = async (
     values: FormDataType,
     formikHelpers: FormikHelpers<FormDataType>
   ) => {
+    let token = await useGetToken();
+    console.log("token");
+    console.log(token);
     console.log(values);
     setIsLoadingAuth(true);
     makeLogin(values.email, values.password);

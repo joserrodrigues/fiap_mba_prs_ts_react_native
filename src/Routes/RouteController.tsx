@@ -17,6 +17,7 @@ import { persistor, store } from "../store/store";
 
 import { useAppSelector } from "../store/hooks";
 import { Provider } from "react-redux";
+import { useManageNotification } from "../Services/Notification/ManageNotification";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -61,6 +62,7 @@ const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 export function RouteController() {
   const userInfo = useAppSelector((state) => state.login.user);
+  useManageNotification();
 
   const StackMyInfo = () => {
     return (
