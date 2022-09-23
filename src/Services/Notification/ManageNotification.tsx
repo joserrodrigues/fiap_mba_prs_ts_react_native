@@ -34,7 +34,7 @@ export function useManageNotification() {
     // Este listener é chamado quando uma notificação é recebida com o app em foreground
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
-        console.log( "ForeGround = " + notification);
+        console.log( "ForeGround = " +notification);
       });
 
     // Este listener é chamado quando o usuário toca ou interage com a notificação (funciona com o app em foreground, background ou fechado)

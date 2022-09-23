@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -18,6 +18,8 @@ import { persistor, store } from "../store/store";
 import { useAppSelector } from "../store/hooks";
 import { Provider } from "react-redux";
 import { useManageNotification } from "../Services/Notification/ManageNotification";
+import * as Updates from "expo-updates";
+import LoadingUpdateController from "../Screens/LoadingUpdate/LoadingUpdateController";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -64,6 +66,27 @@ export function RouteController() {
   const userInfo = useAppSelector((state) => state.login.user);
   useManageNotification();
 
+  const [hasUpdate, setHasUpdate] = useState(false);
+
+  useEffect(() => {
+    async function updateApp() {
+      //*
+      const { isAvailable } = await Updates.checkForUpdateAsync();
+      if (isAvailable) {
+        setHasUpdate(true);
+      }
+      /*/
+
+      setTimeout(() => {
+        console.log("AQUI Set Timeout");
+
+        setHasUpdate(true);
+      }, 2000);
+      //*/
+    }
+    updateApp();
+  }, []);
+
   const StackMyInfo = () => {
     return (
       <Stack.Navigator>
@@ -88,7 +111,19 @@ export function RouteController() {
     );
   };
 
-  if (userInfo && userInfo.token !== "") {
+  if (hasUpdate) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="MyPosition"
+            component={LoadingUpdateController}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  } else if (userInfo && userInfo.token !== "") {
     return (
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Main">

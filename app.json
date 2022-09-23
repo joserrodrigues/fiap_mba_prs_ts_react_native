@@ -4,8 +4,8 @@
     "slug": "fiap_mba_prs_ts_react_native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",    	
-	  "entryPoint": "./src/Routes/RouteController",
+    "icon": "./assets/icon.png",
+    "entryPoint": "./src/Routes/RouteController",
     "jsEngine": "hermes",
     "userInterfaceStyle": "light",
     "splash": {
@@ -26,10 +26,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.rodrigues.rubens.fiap_mba_prs_ts_react_native"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bfad40e9-5134-405c-b137-9e6b0a3f7a1e"
+      }
     }
   }
 }
